@@ -1,4 +1,4 @@
-export const Motivation = () => {
+export const Motivation = () => { //Coffee and motivational quotes
 
     const motivationAPI = [
         "I judge a restaurant by the bread and by the coffee.",

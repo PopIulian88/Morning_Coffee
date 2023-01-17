@@ -13,23 +13,35 @@ import Spacer from "../components/Spacer";
 import {Icon} from "react-native-elements";
 import AutoDimensionImage, {imageDimensionTypes} from "react-native-auto-dimensions-image";
 import {Motivation} from "../createAPI/Motivation";
+import {RandomJoke} from "../createAPI/RandomJoke";
 
-function Main({firstPhoto, imageAPI, quote}) {
+function Main({firstPhoto, imageAPI, coffeeMeme}) {
 
-    const [myImage, setMyImage] = useState(firstPhoto) // I store my API photos here
-    const [myInspiration, setMyInspiration] = useState("You are not fully dressed until you wear a smile!") //I store my inspirational API here
-    const [isFetching, setIsFetching] = useState(false) // For loading screen
+    const [myImage, setMyImage] = useState(firstPhoto)          // I store my API photos here
+    const [myInspiration, setMyInspiration] = useState("You are not fully dressed until you wear a smile!")
+                                                                //I store my inspirational API here
+    const [isFetching, setIsFetching] = useState(false) // For loading screen(Fetching)
 
-    const callAPI = () => { // Calling the API for a random coffee photo
-        setIsFetching(true) // Turn on the loading while we get the data
-        fetch(imageAPI) // Get the photo from the API
+    const callAPI = () => {                          // Calling the API for a random coffee photo
+        setIsFetching(true)                    // Turn on the loading while we get the data
+
+        if(!coffeeMeme) //If is a joke we want to generate a random photo/link(API rules)
+            imageAPI = RandomJoke();
+
+        fetch(imageAPI)                             // Get the photo from the API
             .then((response) => response.json())
             .then((data) => {
-                setMyImage(data.file);
-                setIsFetching(false);
+                if(coffeeMeme) { //We have different API calls based on the case(coffee/joke)
+                    setMyImage(data.file);
+                }else {
+                    setMyImage(data.img);
+                }
+                setIsFetching(false); //Turn the loading off
             })
-        if(quote) {
+
+        if(coffeeMeme) { //If is a coffee case we don't want to have the same quote 2 times in a row so this helps
             let message = Motivation();
+
             while (message === myInspiration) {
                 message = Motivation();
             }
@@ -40,6 +52,7 @@ function Main({firstPhoto, imageAPI, quote}) {
     return(
         <View style={styles.container}>
             <StatusBar hidden />
+
             <View style={styles.upContainer}>
                 <Icon
                     onPress={() => Share.share({url: myImage})}
@@ -53,9 +66,13 @@ function Main({firstPhoto, imageAPI, quote}) {
             <View style={styles.midContainer}>
                 {isFetching ? <ActivityIndicator size="large"/> :
                     <AutoDimensionImage dimensionType={imageDimensionTypes.HEIGHT} dimensionValue={300}
-                                        otherDimensionMaxValue={333} source={{uri: myImage}} style={{borderRadius: 50}}/>
+                                        otherDimensionMaxValue={333} source={{uri: myImage}}
+                                        style={{borderRadius: coffeeMeme ? 50 : 0 /*On joke screen we have the full photo*/}}
+                    />
                 }
+
                 <Spacer/>
+
                 <Text style={styles.text}>{myInspiration}</Text>
             </View>
 
