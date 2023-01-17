@@ -3,10 +3,9 @@ import {
     StyleSheet,
     Image,
     ActivityIndicator,
-    Share,
     StatusBar,
     TouchableOpacity,
-    Text
+    Text, Share
 } from 'react-native';
 import {useState} from "react";
 import Spacer from "../components/Spacer";
@@ -14,6 +13,9 @@ import {Icon} from "react-native-elements";
 import AutoDimensionImage, {imageDimensionTypes} from "react-native-auto-dimensions-image";
 import {Motivation} from "../createAPI/Motivation";
 import {RandomJoke} from "../createAPI/RandomJoke";
+import {postOnFacebook} from "../components/PostOnFacebook";
+
+
 
 function Main({firstPhoto, imageAPI, coffeeMeme}) {
 
@@ -47,15 +49,20 @@ function Main({firstPhoto, imageAPI, coffeeMeme}) {
             }
             setMyInspiration(message);
         }
-    }
+    };
+
 
     return(
         <View style={styles.container}>
             <StatusBar hidden />
 
             <View style={styles.upContainer}>
+                <TouchableOpacity onPress={() => postOnFacebook({myImage, myInspiration})}>
+                    <Image source={require("../photos/facebookButton.png")} style={styles.facebookButton}/>
+                </TouchableOpacity>
+
                 <Icon
-                    onPress={() => Share.share({url: myImage})}
+                    onPress={() => Share.share({message: myInspiration})}
                     name={"share"}
                     color={"#F9AA33"}
                     size={30}
@@ -97,8 +104,10 @@ const styles = StyleSheet.create({
 
     upContainer: {
         flex: 1,
-        alignItems: "flex-end",
-        justifyContent: "center",
+        alignItems: "center",
+        justifyContent: "space-between",
+        flexDirection: "row",
+        padding: 20,
     },
 
     midContainer: {
@@ -123,6 +132,12 @@ const styles = StyleSheet.create({
         width: 100,
         borderRadius: 50,
 
+    },
+
+    facebookButton: {
+        height: 80,
+        width: 80,
+        borderRadius: 50,
     },
 
 });
