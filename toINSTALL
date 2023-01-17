@@ -1,3 +1,9 @@
 npm install react-native-elements  (For Icon)
 
 npm install react-native-auto-dimensions-image (For Image size)
+
+npm install @react-navigation/native (General setup for navigator)
+expo install react-native-screens react-native-safe-area-context
+
+npm install @react-navigation/bottom-tabs (Tab navigator)
+npm install @expo/vector-icons
