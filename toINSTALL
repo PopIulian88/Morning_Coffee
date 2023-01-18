@@ -7,3 +7,5 @@ expo install react-native-screens react-native-safe-area-context
 
 npm install @react-navigation/bottom-tabs (Tab navigator)
 npm install @expo/vector-icons
+
+npx expo install expo-font (For text font)

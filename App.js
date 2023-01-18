@@ -4,13 +4,20 @@ import Coffee from "./Screens/Coffee";
 import {NavigationContainer} from "@react-navigation/native";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import Jokes from "./Screens/Jokes";
-import {Icon} from "react-native-elements";
-import {Feather, FontAwesome, MaterialCommunityIcons} from "@expo/vector-icons";
+import {FontAwesome, MaterialCommunityIcons} from "@expo/vector-icons";
+import {useFonts} from "expo-font";
 
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
+
+    const [fontsLoaded] = useFonts({ //For the text font
+        'BlackItalic': require("./assets/fonts/Inter-BlackItalic.otf"),
+    });
+    if (!fontsLoaded) {
+        return null;
+    }
 
   return (
       <NavigationContainer>

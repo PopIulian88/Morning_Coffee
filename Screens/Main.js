@@ -15,8 +15,6 @@ import {Motivation} from "../createAPI/Motivation";
 import {RandomJoke} from "../createAPI/RandomJoke";
 import {postOnFacebook} from "../components/PostOnFacebook";
 
-
-
 function Main({firstPhoto, imageAPI, coffeeMeme}) {
 
     const [myImage, setMyImage] = useState(firstPhoto)          // I store my API photos here
@@ -51,7 +49,6 @@ function Main({firstPhoto, imageAPI, coffeeMeme}) {
         }
     };
 
-
     return(
         <View style={styles.container}>
             <StatusBar hidden />
@@ -61,6 +58,12 @@ function Main({firstPhoto, imageAPI, coffeeMeme}) {
                     <Image source={require("../photos/facebookButton.png")} style={styles.facebookButton}/>
                 </TouchableOpacity>
 
+                <View style={{ // A view for the Icon for I can put the border
+                    borderRadius: 50,
+                    borderWidth: 3,
+                    borderColor: "#8B4513",
+                    backgroundColor: "#F9AA33"
+                }}>
                 <Icon
                     onPress={() => Share.share({message: myInspiration})}
                     name={"share"}
@@ -68,6 +71,8 @@ function Main({firstPhoto, imageAPI, coffeeMeme}) {
                     size={30}
                     reverse
                 />
+                </View>
+
             </View>
 
             <View style={styles.midContainer}>
@@ -90,9 +95,11 @@ function Main({firstPhoto, imageAPI, coffeeMeme}) {
             </View>
         </View>
     );
+
 }
 
 //Styles
+
 
 const styles = StyleSheet.create({
 
@@ -125,19 +132,26 @@ const styles = StyleSheet.create({
     text: {
         color: "white",
         fontSize: 20,
+        fontFamily: 'BlackItalic',
+        textShadowColor: "#F9AA33",
+        textShadowRadius: 15
     },
 
     button: {
         height: 100,
         width: 100,
         borderRadius: 50,
-
+        borderWidth: 3,
+        borderColor: "#8B4513",
     },
 
     facebookButton: {
         height: 80,
         width: 80,
         borderRadius: 50,
+        borderWidth: 3,
+        borderColor: "#8B4513",
+        shadowColor: "#8B4513",
     },
 
 });
