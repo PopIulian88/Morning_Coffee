@@ -5,7 +5,8 @@ import {
     ActivityIndicator,
     StatusBar,
     TouchableOpacity,
-    Text, Share, ImageBackground
+    Text, Share, ImageBackground,
+    Clipboard
 } from 'react-native';
 import {useState} from "react";
 import Spacer from "../components/Spacer";
@@ -49,6 +50,12 @@ function Main({firstPhoto, imageAPI, coffeeMeme}) {
         }
     };
 
+    const [copiedText, setCopiedText] = useState('Buna');
+
+    const copyToClipboard = () => {
+        Clipboard.setString(myInspiration);
+    };
+
     return(
         <ImageBackground source={require("../photos/backgroundImage.png")} style={styles.container}>
             <StatusBar hidden />
@@ -65,7 +72,7 @@ function Main({firstPhoto, imageAPI, coffeeMeme}) {
                     backgroundColor: "#F9AA33"
                 }}>
                 <Icon
-                    onPress={() => Share.share({message: myInspiration})}
+                    onPress={() => Share.share({message: myImage})}
                     name={"share"}
                     color={"#F9AA33"}
                     size={25}
@@ -79,7 +86,7 @@ function Main({firstPhoto, imageAPI, coffeeMeme}) {
                 {isFetching ? <ActivityIndicator size="large"/> :
                     <AutoDimensionImage dimensionType={imageDimensionTypes.HEIGHT} dimensionValue={300}
                                         otherDimensionMaxValue={333} source={{uri: myImage}}
-                                        style={{borderRadius: coffeeMeme ? 50 : 0, /*On joke screen we have the full photo*/}}
+                                        style={{borderRadius: coffeeMeme ? 50 : 0 /*On joke screen we have the full photo*/}}
                     />
                 }
 
@@ -89,6 +96,12 @@ function Main({firstPhoto, imageAPI, coffeeMeme}) {
             </View>
 
             <View style={styles.downContainer}>
+                <TouchableOpacity onPress={() => copyToClipboard()}>
+                    <Text style={{color: "#8B4513", fontSize: 16, fontWeight: "bold"}}>Copy message</Text>
+                </TouchableOpacity>
+
+                <Spacer height={5}/>
+
                 <TouchableOpacity onPress={() => callAPI()}>
                     <Image source={require("../photos/coffeeButton.jpg")} style={styles.button}/>
                 </TouchableOpacity>
