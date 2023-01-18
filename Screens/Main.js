@@ -79,7 +79,7 @@ function Main({firstPhoto, imageAPI, coffeeMeme}) {
                 {isFetching ? <ActivityIndicator size="large"/> :
                     <AutoDimensionImage dimensionType={imageDimensionTypes.HEIGHT} dimensionValue={300}
                                         otherDimensionMaxValue={333} source={{uri: myImage}}
-                                        style={{borderRadius: coffeeMeme ? 50 : 0 /*On joke screen we have the full photo*/}}
+                                        style={{borderRadius: coffeeMeme ? 50 : 0, /*On joke screen we have the full photo*/}}
                     />
                 }
 
