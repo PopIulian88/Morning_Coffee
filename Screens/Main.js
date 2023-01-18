@@ -5,7 +5,7 @@ import {
     ActivityIndicator,
     StatusBar,
     TouchableOpacity,
-    Text, Share
+    Text, Share, ImageBackground
 } from 'react-native';
 import {useState} from "react";
 import Spacer from "../components/Spacer";
@@ -50,7 +50,7 @@ function Main({firstPhoto, imageAPI, coffeeMeme}) {
     };
 
     return(
-        <View style={styles.container}>
+        <ImageBackground source={require("../photos/backgroundImage.png")} style={styles.container}>
             <StatusBar hidden />
 
             <View style={styles.upContainer}>
@@ -68,7 +68,7 @@ function Main({firstPhoto, imageAPI, coffeeMeme}) {
                     onPress={() => Share.share({message: myInspiration})}
                     name={"share"}
                     color={"#F9AA33"}
-                    size={30}
+                    size={25}
                     reverse
                 />
                 </View>
@@ -93,7 +93,9 @@ function Main({firstPhoto, imageAPI, coffeeMeme}) {
                     <Image source={require("../photos/coffeeButton.jpg")} style={styles.button}/>
                 </TouchableOpacity>
             </View>
-        </View>
+
+            <Spacer/>
+        </ImageBackground>
     );
 
 }
@@ -103,10 +105,13 @@ function Main({firstPhoto, imageAPI, coffeeMeme}) {
 
 const styles = StyleSheet.create({
 
+
     container: {
         flex: 1,
         padding: 10,
-        backgroundColor: "#232"
+        resizeMode: 'cover',
+        justifyContent: 'center',
+        backgroundColor: "#232",
     },
 
     upContainer: {
@@ -133,7 +138,7 @@ const styles = StyleSheet.create({
         color: "white",
         fontSize: 20,
         fontFamily: 'BlackItalic',
-        textShadowColor: "#F9AA33",
+        textShadowColor: "#8B4513",
         textShadowRadius: 15
     },
 
