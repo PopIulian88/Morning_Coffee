@@ -72,7 +72,7 @@ function Main({firstPhoto, imageAPI, coffeeMeme}) {
                     backgroundColor: "#F9AA33"
                 }}>
                 <Icon
-                    onPress={() => Share.share({message: myImage})}
+                    onPress={() => Share.share({message: "Link to a photo: " + myImage})}
                     name={"share"}
                     color={"#F9AA33"}
                     size={25}
